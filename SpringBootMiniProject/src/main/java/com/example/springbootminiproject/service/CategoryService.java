@@ -42,5 +42,12 @@ public class CategoryService {
         }
     }
 
+    public Optional<Category> getCategory(Long categoryId){
+        Optional<Category> categoryOptional = Optional.of(categoryRepository.findByIdAndUserId(categoryId, CategoryService.getCurrentLoggedInUser().getId()));
+        if(categoryOptional.isPresent()){
+            return categoryOptional
+                    ;        }
+        throw new InformationNotFoundException("Category with Id " + categoryId + " not found");
+    }
 
 }
