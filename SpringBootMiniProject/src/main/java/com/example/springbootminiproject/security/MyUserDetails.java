@@ -2,11 +2,13 @@ package com.example.springbootminiproject.security;
 
 import com.example.springbootminiproject.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.Collection;
 import java.util.HashSet;
 
-public class MyUserDetails {
+public class MyUserDetails implements UserDetails {
     private final User user;
 
 
@@ -17,5 +19,20 @@ public class MyUserDetails {
     public User getUser() {
         return user;
     }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new HashSet<>();
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getEmailAddress();
+    }
+
 
 }
