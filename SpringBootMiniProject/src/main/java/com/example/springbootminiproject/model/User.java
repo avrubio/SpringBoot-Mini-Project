@@ -39,4 +39,11 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
+
+    public Category findCategoryById(Long id) {
+        return this.getCategoryList().stream()
+                .filter(category -> category.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 }
