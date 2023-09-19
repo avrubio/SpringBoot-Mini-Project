@@ -31,4 +31,11 @@ public class Product {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    public Product update (Product productObject) {
+        this.setName(productObject.getName());
+        this.setDirections(productObject.getDirections());
+
+        return this;
+    }
 }
