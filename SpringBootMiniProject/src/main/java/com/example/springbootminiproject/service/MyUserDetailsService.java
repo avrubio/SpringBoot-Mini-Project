@@ -1,4 +1,4 @@
-package com.example.springbootminiproject.security;
+package com.example.springbootminiproject.service;
 
 import com.example.springbootminiproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
