@@ -8,4 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserProfile {
-}
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String profileDescription;
