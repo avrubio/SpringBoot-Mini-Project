@@ -1,2 +1,7 @@
-package com.example.springbootminiproject.repository;public interface CategoryRepository {
+package com.example.springbootminiproject.repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CategoryRepository {
 }

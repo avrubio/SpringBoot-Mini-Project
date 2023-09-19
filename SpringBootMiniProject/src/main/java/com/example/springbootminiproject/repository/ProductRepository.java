@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.repository;public interface ProductRepository {
+package com.example.springbootminiproject.repository;
+
+public interface ProductRepository{
 }

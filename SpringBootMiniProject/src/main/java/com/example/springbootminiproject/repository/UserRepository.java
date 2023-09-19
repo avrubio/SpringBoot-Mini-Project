@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.repository;public interface UserRepository {
+package com.example.springbootminiproject.repository;
+
+public interface UserRepository {
 }
