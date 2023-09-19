@@ -1,5 +1,6 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.expection.InformationExistException;
 import com.example.springbootminiproject.expection.InformationNotFoundException;
 import com.example.springbootminiproject.model.Category;
 import com.example.springbootminiproject.model.User;
@@ -48,6 +49,16 @@ public class CategoryService {
             return categoryOptional
                     ;        }
         throw new InformationNotFoundException("Category with Id " + categoryId + " not found");
+    }
+
+    public Category createCategory(Category categoryObject) {
+        Category category = categoryRepository.findByName(categoryObject.getName()).orElse(null);
+        if (category != null) {
+            throw new InformationExistException("category with name " + categoryObject.getName() + " already exists");
+        } else {
+            category.setUser(getCurrentLoggedInUser());
+            return categoryRepository.save(categoryObject);
+        }
     }
 
 }
