@@ -155,4 +155,17 @@ public class CategoryService {
         }
     }
 
+    public Optional<Product> deleteCategoryProduct(Long categoryId, Long productId){
+        Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+
+        try{
+            List<Product> product1 = foundCategory.getProductList().stream().filter(product -> product.getId().equals(productId)).collect(Collectors.toList());
+            productRepository.deleteById(product1.get(0).getId());
+            return Optional.of(product1.get(0));
+        } catch(NoSuchElementException e){
+            throw new InformationNotFoundException("Category or product not found.");
+        }
+    }
+
+
 }
