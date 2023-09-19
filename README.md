@@ -60,6 +60,25 @@ In addition to the basics, I've designed other API endpoints tailored to specifi
 
 Following REST conventions, I've exposed CRUD routes that make it easy to work with my API. It's all about making the API user-friendly.
 
+| Request Type | URL                | Functionality      | Access | 
+|--------------|--------------------|--------------------|--------|
+| POST         | /auth/users/register/ | Create User        | Public |
+| POST         | /auth/users/login/ | User login         | Public |
+| GET          | /api/categories/   | Get all categories | Private |
+| GET          | /api/categories/{categoryId}   | Get one category | Private |
+| POST         | api/categories/ | create Category       | Private |
+| PUT          | /api/categories/{categoryId}   | update Category | Private |
+| DEL          | /categories/{categoryId}/}/  | delete category | Private |
+| POST         | /categories/{categoryId}/products/ | Create product       | Private |
+| GET          | /categories/{categoryId}/products/ | Get all categories and products | Private |
+| GET          | /categories/{categoryId}/products/{productId}/  | Get one product in category | Private |
+| PUT          | /categories/{categoryId}/products/{productId}/  | update product | Private |
+| DEL          | /categories/{categoryId}/products/{productId}/| delete product | Private |
+
+
+
+
+
 ## Exception Handling
 
 In the world of software development, things don't always go as planned. I've made sure that my application gracefully handles exceptions and returns meaningful error messages when necessary.
