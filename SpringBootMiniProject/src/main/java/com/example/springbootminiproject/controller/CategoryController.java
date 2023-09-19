@@ -66,4 +66,8 @@ public class CategoryController {
     public Product updateCategoryProduct(@PathVariable(value = "categoryId")Long categoryId ,@PathVariable(value = "productId")Long productId,  @RequestBody Product productObject) {
         return categoryService.updateCategoryProduct(categoryId, productId, productObject);
     }
+    @DeleteMapping(path = "/categories/{categoryId}/products/{productId}/")
+    public Optional<Product> deleteCategoryProduct(Long categoryId, Long productId){
+        return categoryService.deleteCategoryProduct(categoryId,productId);
+    }
 }
