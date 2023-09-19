@@ -3,6 +3,7 @@ package com.example.springbootminiproject.service;
 import com.example.springbootminiproject.expection.InformationExistException;
 import com.example.springbootminiproject.expection.InformationNotFoundException;
 import com.example.springbootminiproject.model.Category;
+import com.example.springbootminiproject.model.Product;
 import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.CategoryRepository;
 import com.example.springbootminiproject.repository.ProductRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -24,7 +26,8 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    @Autowired //to connect to recipe repository and to use its methods
+    @Autowired //to connect to product
+    // repository and to use its methods
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -81,6 +84,16 @@ public class CategoryService {
             categoryRepository.deleteById(categoryId);
             return foundCategory;
         } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
+    }
+
+    public Product createCategoryProduct(Long categoryId, Product productObject) {
+        try {
+            Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+            productObject.setCategory(foundCategory);
+            return productRepository.save(productObject);
+        } catch (NoSuchElementException e) {
             throw new InformationNotFoundException("category with id " + categoryId + " not found");
         }
     }
