@@ -75,5 +75,14 @@ public class CategoryService {
             throw new InformationNotFoundException("Category with id " + categoryId + " not found.");
         }
     }
+    public Category deleteCategory(Long categoryId) {
+        Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+        if (foundCategory != null) {
+            categoryRepository.deleteById(categoryId);
+            return foundCategory;
+        } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
+    }
 
 }
