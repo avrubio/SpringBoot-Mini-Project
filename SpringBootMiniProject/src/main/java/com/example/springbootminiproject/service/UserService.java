@@ -1,5 +1,7 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.expection.InformationExistException;
+import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.UserRepository;
 import com.example.springbootminiproject.security.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +25,14 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
         this.authenticationManager = authenticationManager;
+    }
+
+    public User createUser(User userObject) {
+        if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
+            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+            return userRepository.save(userObject);
+        } else {
+            throw new InformationExistException("user with email address " + userObject.getEmailAddress() + " already exists");
+        }
     }
 }
