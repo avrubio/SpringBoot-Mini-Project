@@ -23,8 +23,10 @@ public class CategoryController {
     public List<Category> getCategories() {
         return categoryService.getCategories();
     }
+
     @GetMapping(path = "/categories/{categoryId}/") // http://localhost:4444/api/categories/
-    public Optional<Category> getCategory(@PathVariable(value = "categoryId") Long categoryId)  {return categoryService.getCategory(categoryId);
+    public Optional<Category> getCategory(@PathVariable(value = "categoryId") Long categoryId) {
+        return categoryService.getCategory(categoryId);
     }
 
     @PostMapping(path = "/categories/") // http://localhost:4444/api/categories/
@@ -36,6 +38,7 @@ public class CategoryController {
     public Category updateCategory(@PathVariable(value = "categoryId") Long categoryId, @RequestBody Category category) {
         return categoryService.updateCategory(categoryId, category);
     }
+
     @DeleteMapping(path = "/categories/{categoryId}/") // // http://localhost:4444/api/categories/1/
     public Category deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
         return categoryService.deleteCategory(categoryId);
@@ -43,8 +46,8 @@ public class CategoryController {
 
     //Products CRUD
 
-    @PostMapping(path="/categories/{categoryId}/products/")
-    public Product createCategoryProduct(@PathVariable(value = "categoryId" ) Long categoryId, @RequestBody Product productObject) {
+    @PostMapping(path = "/categories/{categoryId}/products/")
+    public Product createCategoryProduct(@PathVariable(value = "categoryId") Long categoryId, @RequestBody Product productObject) {
         return categoryService.createCategoryProduct(categoryId, productObject);
     }
 
@@ -54,7 +57,13 @@ public class CategoryController {
     }
 
     @GetMapping(path = "/categories/{categoryId}/products/{productId}/")
-    public Product getCategoryProduct(@PathVariable(value = "categoryId")Long categoryId ,@PathVariable(value = "productId") Long productId){
-        return categoryService.getCategoryProduct(categoryId,productId);
+    public Product getCategoryProduct(@PathVariable(value = "categoryId") Long categoryId, @PathVariable(value = "productId") Long productId) {
+        return categoryService.getCategoryProduct(categoryId, productId);
 
     }
+
+    @PutMapping(path = "/categories/{categoryId}/products/{productId}/")
+    public Product updateCategoryProduct(@PathVariable(value = "categoryId")Long categoryId ,@PathVariable(value = "productId")Long productId,  @RequestBody Product productObject) {
+        return categoryService.updateCategoryProduct(categoryId, productId, productObject);
+    }
+}
