@@ -120,11 +120,11 @@ public class CategoryService {
     public Product getCategoryProduct(Long categoryId , Long productId){
         Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
 
-        Optional<Product> recipeOptional= productRepository.findById(productId);
+        Optional<Product> productOptional= productRepository.findById(productId);
 
         if(foundCategory != null ) {
 
-            if(recipeOptional.isPresent()){
+            if(productOptional.isPresent()){
                 List<Product> product1 = foundCategory.getProductList().stream().filter(product ->product.getId().equals(productId)).collect(Collectors.toList());
                 if (product1.isEmpty()) {
                     throw new InformationNotFoundException("product with id " +productId + " not found in category with id " + categoryId);
