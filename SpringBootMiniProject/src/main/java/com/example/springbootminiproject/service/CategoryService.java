@@ -138,4 +138,21 @@ public class CategoryService {
 
     }
 
+    public Product updateCategoryProduct(Long categoryId, Long productId, Product productObject) {
+        Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+
+        if (foundCategory != null) {
+            try {
+               Product product = foundCategory.getProductList().stream().filter(p -> p.getId().equals(productId)).findFirst().get();
+                product.setName(productObject.getName());
+                product.setDirections(productObject.getDirections());
+                return productRepository.save(product);
+            } catch (NoSuchElementException e) {
+                throw new InformationNotFoundException("product with id " + productId + " not found");
+            }
+        } else {
+            throw new InformationNotFoundException("Category with id " + categoryId + " not found");
+        }
+    }
+
 }
