@@ -1,6 +1,7 @@
 package com.example.springbootminiproject.controller;
 
 import com.example.springbootminiproject.model.Category;
+import com.example.springbootminiproject.model.Product;
 import com.example.springbootminiproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,12 @@ public class CategoryController {
     @DeleteMapping(path = "/categories/{categoryId}/") // // http://localhost:4444/api/categories/1/
     public Category deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
         return categoryService.deleteCategory(categoryId);
+    }
+
+    //Products CRUD
+
+    @PostMapping(path="/categories/{categoryId}/products/")
+    public Product createCategoryProduct(@PathVariable(value = "categoryId" ) Long categoryId, @RequestBody Product productObject) {
+        return categoryService.createCategoryProduct(categoryId, productObject);
     }
 }
