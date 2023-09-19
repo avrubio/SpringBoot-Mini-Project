@@ -15,12 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
     private CategoryRepository categoryRepository;
     private ProductRepository productRepository;
+    Logger logger= Logger.getLogger(CategoryService.class.getName());
 
     @Autowired
     public void setCategoryRepository(CategoryRepository categoryRepository) {
