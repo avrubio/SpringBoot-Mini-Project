@@ -1,8 +1,11 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.CategoryRepository;
 import com.example.springbootminiproject.repository.ProductRepository;
+import com.example.springbootminiproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,5 +22,11 @@ public class CategoryService {
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
+    public static User getCurrentLoggedInUser(){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+
 
 }
