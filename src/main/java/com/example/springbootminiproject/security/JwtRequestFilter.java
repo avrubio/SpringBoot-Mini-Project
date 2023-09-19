@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ * Filter class to handle JWT authentication for incoming requests.
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    Logger logger = Logger.getLogger(JwtRequestFilter.class.getName());
-
+    private static final Logger logger = Logger.getLogger(JwtRequestFilter.class.getName());
 
     private MyUserDetailsService myUserDetailsService;
     private JWTUtils jwtUtils;
@@ -35,10 +37,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         this.jwtUtils = jwtUtils;
     }
 
-
+    /**
+     * Parses the JWT token from the request's authorization header.
+     *
+     * @param request The HTTP request.
+     * @return The JWT token or null if not found.
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
-        // Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXJlc2gyQGdhLmNvbSIsImlhdCI6MTY5NDgwMDAzNiwiZXhwIjoxNjk0ODg2NDM2fQ.z3smvkvDJqOYz7699UjvH5JQ51MuWL-KXffegc1UxWU
         if (StringUtils.hasLength(headerAuth) && headerAuth.startsWith("Bearer")) {
             return headerAuth.substring(7);
         }
@@ -46,6 +52,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         return null;
     }
 
+    /**
+     * Handles JWT authentication for incoming requests.
+     *
+     * @param request     The HTTP request.
+     * @param response    The HTTP response.
+     * @param filterChain The filter chain for processing the request.
+     * @throws ServletException If there's an issue with the servlet.
+     * @throws IOException      If there's an issue with I/O operations.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -58,7 +73,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         } catch (Exception e) {
-            logger.info("cannot set user authentication token");
+            logger.info("Cannot set user authentication token");
         }
         filterChain.doFilter(request, response);
     }
