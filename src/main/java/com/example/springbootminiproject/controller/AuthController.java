@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+/**
+ * Controller class for user authentication.
+ */
 @RestController
-@RequestMapping(path = "/auth/users/") //http://localhost:9092/auth/users/
+@RequestMapping(path = "/auth/users/") // Base URL: http://localhost:9092/auth/users/
 public class AuthController {
 
     private UserService userService;
@@ -25,12 +28,26 @@ public class AuthController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    /**
+     * Register a new user.
+     *
+     * @param userObject The user object to register.
+     * @return The registered user.
+     */
     @PostMapping(path="/register/")
     public User createUser(@RequestBody User userObject){
         return userService.createUser(userObject);
     }
 
-    @PostMapping(path = "/login/") // http://localhost:9092/auth/users/login/
+    /**
+     * Authenticate a user and generate a JWT token upon successful login.
+     *
+     * @param loginRequest The login request containing user credentials.
+     * @return A ResponseEntity containing the JWT token if authentication is successful,
+     *         or an unauthorized status if authentication fails.
+     */
+    @PostMapping(path = "/login/") // Endpoint URL: http://localhost:9092/auth/users/login/
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         Optional<String> jwtToken = userService.loginUser(loginRequest);
         if (jwtToken.isPresent()) {
