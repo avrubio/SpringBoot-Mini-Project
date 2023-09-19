@@ -98,4 +98,18 @@ public class CategoryService {
         }
     }
 
+    public List<Product> getCategoriesProducts(Long categoryId) {
+        try {
+            Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+
+            if (foundCategory != null) {
+                Category category = (foundCategory);
+                return category.getProductList(); // Assuming you have a getProducts() method in your Category class
+            } else {
+                throw new InformationNotFoundException("Category with id " + categoryId + " not found");
+            }
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("Category with id " + categoryId + " not found");
+        }
+    }
 }
