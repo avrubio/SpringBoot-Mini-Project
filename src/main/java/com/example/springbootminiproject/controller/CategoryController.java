@@ -49,7 +49,7 @@ public class CategoryController {
     public Product createCategoryProduct(@PathVariable(value = "categoryId" ) Long categoryId, @RequestBody Product productObject) {
         return categoryService.createCategoryProduct(categoryId, productObject);
     }
-    @GetMapping(path = "/caproductes/{categoryId}/products/") // http://localhost:8080/api/categories/
+    @GetMapping(path = "/categories/{categoryId}/products/") // http://localhost:8080/api/categories/
     public List<Product> getCategoriesProducts(@PathVariable(value = "categoryId") Long categoryId) {
         return categoryService.getCategoriesProducts(categoryId);
     }
