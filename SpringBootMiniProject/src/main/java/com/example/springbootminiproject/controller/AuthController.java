@@ -27,7 +27,7 @@ public class AuthController {
         return userService.createUser(userObject);
     }
 
-    @PostMapping(path = "/login/") // http://localhost:9092/auth/users/login/
+    @PostMapping(path = "/login/") // http://localhost:4444/auth/users/login/
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         Optional<String> jwtToken = userService.loginUser(loginRequest);
         if (jwtToken.isPresent()) {
