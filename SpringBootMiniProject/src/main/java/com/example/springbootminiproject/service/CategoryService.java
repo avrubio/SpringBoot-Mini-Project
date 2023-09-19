@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -112,4 +113,29 @@ public class CategoryService {
             throw new InformationNotFoundException("Category with id " + categoryId + " not found");
         }
     }
+
+
+    public Product getCategoryProduct(Long categoryId , Long productId){
+        Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+
+        Optional<Product> recipeOptional= productRepository.findById(productId);
+
+        if(foundCategory != null ) {
+
+            if(recipeOptional.isPresent()){
+                List<Product> product1 = foundCategory.getProductList().stream().filter(product ->product.getId().equals(productId)).collect(Collectors.toList());
+                if (product1.isEmpty()) {
+                    throw new InformationNotFoundException("product with id " +productId + " not found in category with id " + categoryId);
+                }
+                return product1.get(0);
+            } else {
+                throw new InformationNotFoundException("product with id " +productId + " not found");
+            }
+
+        } else {
+            throw new InformationNotFoundException("category with id " + categoryId + " not found");
+        }
+
+    }
+
 }
