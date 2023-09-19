@@ -35,4 +35,8 @@ public class CategoryController {
     public Category updateCategory(@PathVariable(value = "categoryId") Long categoryId, @RequestBody Category category) {
         return categoryService.updateCategory(categoryId, category);
     }
+    @DeleteMapping(path = "/categories/{categoryId}/") // // http://localhost:4444/api/categories/1/
+    public Category deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
+        return categoryService.deleteCategory(categoryId);
+    }
 }
