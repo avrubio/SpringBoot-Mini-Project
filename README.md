@@ -32,7 +32,8 @@ I've designed a minimum of three database models to shape the core of my applica
 
 ## ERD Diagram
 
-![Database Diagram](Model databases.png)
+<img src="/Model databases.png" alt="Alt text" title="Optional title">
+
 
 ## Spring Profiles
 
