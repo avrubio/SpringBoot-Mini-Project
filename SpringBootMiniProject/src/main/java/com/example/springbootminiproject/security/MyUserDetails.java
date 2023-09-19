@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.security;public class MyUserDetails {
+package com.example.springbootminiproject.security;
+
+public class MyUserDetails {
 }

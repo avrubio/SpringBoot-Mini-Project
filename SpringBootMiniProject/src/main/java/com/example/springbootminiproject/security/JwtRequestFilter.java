@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.security;public class JwtRequestFilter {
+package com.example.springbootminiproject.security;
+
+public class JwtRequestFilter {
 }

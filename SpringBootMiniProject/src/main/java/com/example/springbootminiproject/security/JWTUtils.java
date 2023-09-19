@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.security;public class JWTUtils {
+package com.example.springbootminiproject.security;
+
+public class JWTUtils {
 }
