@@ -61,4 +61,19 @@ public class CategoryService {
         }
     }
 
+    public Category updateCategory(Long categoryId, Category category) {
+        Category foundCategory = getCurrentLoggedInUser().findCategoryById(categoryId);
+        if (foundCategory != null) {
+            if (foundCategory.getName().equals(foundCategory.getName()) &&
+                    foundCategory.getDescription().equals(foundCategory.getDescription())) {
+                throw new InformationExistException("The category name is already " +foundCategory.getName() + " and description is already " + category.getDescription());
+            } else {
+                foundCategory.setId(categoryId);
+                return categoryRepository.save(foundCategory);
+            }
+        } else {
+            throw new InformationNotFoundException("Category with id " + categoryId + " not found.");
+        }
+    }
+
 }
