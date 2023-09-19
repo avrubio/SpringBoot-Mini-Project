@@ -25,6 +25,14 @@ public class UserService {
     private final JWTUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Constructor for UserService.
+     *
+     * @param userRepository       The repository for user data.
+     * @param passwordEncoder      The encoder for user passwords.
+     * @param jwtUtils             The utility for JWT token generation.
+     * @param authenticationManager The authentication manager for user login.
+     */
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder,
                        JWTUtils jwtUtils,
@@ -35,6 +43,13 @@ public class UserService {
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param userObject The user object to create.
+     * @return The created user.
+     * @throws InformationExistException if a user with the same email address already exists.
+     */
     public User createUser(User userObject) {
         if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
@@ -44,6 +59,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Attempt to log in a user with the provided credentials.
+     *
+     * @param loginRequest The login request containing user credentials.
+     * @return An optional JWT token if login is successful, empty otherwise.
+     */
     public Optional<String> loginUser(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken authenticationToken = new
                 UsernamePasswordAuthenticationToken(loginRequest.getEmailAddress(), loginRequest.getPassword());
@@ -57,6 +78,13 @@ public class UserService {
         }
     }
 
+
+    /**
+     * Find a user by their email address.
+     *
+     * @param emailAddress The email address of the user to find.
+     * @return The user object if found, or null if not found.
+     */
     public User findUserByEmailAddress(String emailAddress) {
         return userRepository.findUserByEmailAddress(emailAddress);
     }
